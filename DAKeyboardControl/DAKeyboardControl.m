@@ -350,12 +350,10 @@ static char UIViewKeyboardPanRecognizer;
             CGPoint velocity = [gesture velocityInView:self.keyboardActiveView];
             BOOL shouldRecede;
             
-            if (touchLocationInKeyboardWindow.y < thresholdHeight)
+            if (touchLocationInKeyboardWindow.y < thresholdHeight || velocity.y < 0)
                 shouldRecede = NO;
-            else if (velocity.y > 0)
-                shouldRecede = YES;
             else
-                shouldRecede = NO;
+                shouldRecede = YES;
 
             // If the keyboard has only been pushed down 44 pixels or has been panned upwards let it pop back up; otherwise, let it drop down
             CGRect newKeyboardViewFrame = self.keyboardActiveView.frame;
