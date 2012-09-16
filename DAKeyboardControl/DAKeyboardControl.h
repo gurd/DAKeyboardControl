@@ -18,6 +18,8 @@ typedef void (^DAKeyboardDidMoveBlock)(CGRect keyboardFrameInView);
 - (void)addKeyboardNonpanningWithActionHandler:(DAKeyboardDidMoveBlock)didMoveBlock;
 
 - (void)removeKeyboardControl;
+- (void)beginUpdates;
+- (void)endUpdates;
 
 - (CGRect)keyboardFrameInView;
 

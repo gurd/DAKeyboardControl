@@ -62,21 +62,21 @@ static char UIViewKeyboardPanRecognizer;
                                              selector:@selector(inputKeyboardDidShow:)
                                                  name:UIKeyboardDidShowNotification
                                                object:nil];
-    
+
     // For the sake of 4.X compatibility
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(inputKeyboardWillChangeFrame:)
-                                                 name:@"UIKeyboardWillChangeFrameNotification"
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(inputKeyboardWillChangeFrame:)
+//                                                 name:@"UIKeyboardWillChangeFrameNotification"
+//                                               object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(inputKeyboardDidChangeFrame:)
                                                  name:@"UIKeyboardDidChangeFrameNotification"
                                                object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(inputKeyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(inputKeyboardWillHide:)
+//                                                 name:UIKeyboardWillHideNotification
+//                                               object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(inputKeyboardDidHide:)
                                                  name:UIKeyboardDidHideNotification
@@ -464,6 +464,27 @@ static char UIViewKeyboardPanRecognizer;
                              keyboardPanRecognizer,
                              OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self didChangeValueForKey:@"keyboardPanRecognizer"];
+}
+
+- (void)beginUpdates {
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"UIKeyboardWillChangeFrameNotification"
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+}
+
+- (void)endUpdates {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(inputKeyboardWillChangeFrame:)
+                                                 name:@"UIKeyboardWillChangeFrameNotification"object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(inputKeyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 @end
